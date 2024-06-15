@@ -1,4 +1,4 @@
-package com.example.example08;
+package com.example.example09;
 
 import java.math.BigInteger;
 
@@ -23,9 +23,6 @@ public class LongComputationTask implements Runnable {
     private BigInteger calculate() {
         var result = BigInteger.ONE;
         for (var i = BigInteger.ZERO; i.compareTo(power) != 0; i = i.add(BigInteger.ONE)) {
-            if (Thread.currentThread().isInterrupted()) {
-                throw new RuntimeException("Prematurely interrupted computation");
-            }
             result = result.multiply(base);
         }
         return result;
