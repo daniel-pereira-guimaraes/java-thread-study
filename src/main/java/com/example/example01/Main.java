@@ -15,6 +15,9 @@ public class Main {
 
         var thread = new Thread(runnable);
 
+        thread.setName("Second Thread");
+        Thread.currentThread().setName("Main Thread");
+
         thread.start();
         slowProcessing();
     }
