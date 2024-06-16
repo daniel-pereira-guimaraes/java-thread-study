@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -15,11 +17,12 @@ import java.util.concurrent.Executors;
 public class Main {
 
     private static final String INPUT_FILE = "c:\\tmp\\file.txt";
-    private static final int NUMBER_OF_THREADS = 1;
+    private static final int NUMBER_OF_THREADS = 3;
     private static final int OK = 200;
     private static final int BAD_REQUEST = 400;
     private static final String WORD_PARAM = "word";
     private static final String WORD_PARAM_NOT_FOUND = "Required 'word' param not found!";
+    private static final int PORT = 8000;
 
     public static void main(String[] args) throws IOException {
         var text = new String(Files.readAllBytes(Paths.get(INPUT_FILE)));
@@ -28,7 +31,7 @@ public class Main {
 
     private static void startServer(String text) throws IOException {
         var executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-        var server = HttpServer.create(new InetSocketAddress(8000), 0);
+        var server = HttpServer.create(new InetSocketAddress(PORT), 0);
         server.createContext("/search", new WordCountHandler(text));
         server.setExecutor(executor);
         server.start();
