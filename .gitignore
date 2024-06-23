@@ -10,6 +10,7 @@ target/
 *.ipr
 
 ### Eclipse ###
+bin/
 .apt_generated
 .classpath
 .factorypath
@@ -32,4 +33,4 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Storebin/
