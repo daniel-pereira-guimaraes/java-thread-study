@@ -1,6 +1,6 @@
 package com.example.example19;
 
-public class SynchronizedObject {
+public class SynchronizedMethods {
 
     public synchronized void synchronizedMethod1() {
         System.out.println(getClass().getSimpleName() + ".synchronizedMethod1 - starting");
