@@ -1,4 +1,4 @@
-package com.example.exemple19;
+package com.example.example19;
 
 public class SynchronizedObject {
 
