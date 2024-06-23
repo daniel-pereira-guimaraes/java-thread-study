@@ -1,5 +1,7 @@
 package com.example.example24;
 
+import java.util.Random;
+
 public class DeadLock {
 
     public static void main(String[] args) {
@@ -7,12 +9,14 @@ public class DeadLock {
 
         new Thread(() -> {
             while (true) {
+                randomDelay();
                 shared.action1();
             }
         }).start();
 
         new Thread(() -> {
             while (true) {
+                randomDelay();
                 shared.action2();
             }
         }).start();
@@ -20,29 +24,34 @@ public class DeadLock {
 
     private static class Shared {
 
-        private Object lock1 = new Object();
-        private Object lock2 = new Object();
+        private Object resource1 = new Object();
+        private Object resource2 = new Object();
 
         public void action1() {
-            System.out.println("action1 locking lock1");
-            synchronized (lock1) {
-                System.out.println("action1 locking lock2");
-                synchronized (lock2) {
-                    System.out.println("Running action1");
+            synchronized (resource1) {
+                System.out.println("resource1 locked by " + Thread.currentThread().getName());
+                synchronized (resource2) {
+                    System.out.println("resource2 locked by " + Thread.currentThread().getName());
                 }
             }
         }
 
         public void action2() {
-            System.out.println("action2 locking lock2");
-            synchronized (lock2) {
-                System.out.println("action2 locking lock1");
-                synchronized (lock1) {
-                    System.out.println("Running action2");
+            synchronized (resource2) {
+                System.out.println("resource2 locked by " + Thread.currentThread().getName());
+                synchronized (resource1) {
+                    System.out.println("resource1 locked by " + Thread.currentThread().getName());
                 }
             }
         }
-
     }
+
+    private static void randomDelay() {
+        try {
+            Thread.sleep(new Random().nextInt(20));
+        } catch (InterruptedException ignored) {
+        }
+    }
+
 
 }
