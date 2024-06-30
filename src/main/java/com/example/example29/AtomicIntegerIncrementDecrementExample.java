@@ -2,7 +2,7 @@ package com.example.example29;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AtomicIntegerExample {
+public class AtomicIntegerIncrementDecrementExample {
 
     public static void main(String[] args) throws InterruptedException {
         var atomicInteger = new AtomicInteger(0);
