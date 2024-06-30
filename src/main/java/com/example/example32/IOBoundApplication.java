@@ -1,7 +1,6 @@
 package com.example.example32;
 
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class IOBoundApplication {
     private static final int NUMBER_OF_TASKS = 1000;
@@ -14,19 +13,9 @@ public class IOBoundApplication {
     }
 
     private static void performTasks() {
-        var executorService = Executors.newFixedThreadPool(100);
-        try {
+        try (var executorService = Executors.newFixedThreadPool(100)) {
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
                 executorService.submit(IOBoundApplication::simulateLongBlockingIO);
-            }
-        } finally {
-            executorService.shutdown();
-            while (!executorService.isTerminated()) {
-                try {
-                    executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
     }
