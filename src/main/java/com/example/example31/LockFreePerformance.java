@@ -76,6 +76,7 @@ public class LockFreePerformance {
                 if (head.compareAndSet(currentHeadNode, newHeadNode)) {
                     break;
                 } else {
+                    //LockSupport.parkNanos(1);
                     currentHeadNode = head.get();
                 }
             }
