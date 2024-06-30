@@ -14,7 +14,7 @@ public class IOBoundApplication {
     }
 
     private static void performTasks() {
-        var executorService = Executors.newCachedThreadPool();
+        var executorService = Executors.newFixedThreadPool(100);
         try {
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
                 executorService.submit(IOBoundApplication::simulateLongBlockingIO);
